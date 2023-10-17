@@ -1,0 +1,1 @@
+const stmt = DB.prepare('SELECT * FROM users WHERE name = "John Doe"');
