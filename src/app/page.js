@@ -1,5 +1,4 @@
 import Card from './component/Card'
-export const runtime = 'edge'
 //import Loading from './component/Loading'
 import PopupForm from './component/PopForm'
 

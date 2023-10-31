@@ -1,5 +1,4 @@
 import { NextAuthOptions} from "next-auth";
-export const runtime = 'edge';
 
 import GithubProvider from "next-auth/providers/github";
 
