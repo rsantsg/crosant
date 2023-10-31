@@ -13,17 +13,33 @@
     "pages:dev": "npx wrangler pages dev .vercel/output/static --compatibility-flag=nodejs_compat"
   },
   "dependencies": {
+    "assert": "^2.0.0",
     "autoprefixer": "10.4.16",
+    "browserify": "^17.0.0",
+    "crypto-browserify": "^3.12.0",
+    "dotenv": "^10.0.0",
     "eslint": "8.51.0",
     "eslint-config-next": "13.5.4",
+    "https": "^1.0.0",
+    "https-browserify": "^1.0.0",
     "next": "13.5.4",
+    "next-auth": "^4.24.4",
+    "oauth": "^0.10.0",
+    "os": "^0.1.2",
     "postcss": "8.4.31",
     "react": "18.2.0",
     "react-dom": "18.2.0",
-    "tailwindcss": "3.3.3"
+    "react-icons": "^4.11.0",
+    "react-scripts": "^5.0.1",
+    "reactjs-popup": "^2.0.6",
+    "stream": "^0.0.2",
+    "stream-http": "^3.2.0",
+    "tailwindcss": "3.3.3",
+    "webpack": "^5.89.0"
   },
   "devDependencies": {
     "@cloudflare/next-on-pages": "^1.6.3",
+    "@types/react": "18.2.32",
     "eslint-plugin-next-on-pages": "^1.6.3",
     "vercel": "^32.4.1"
   }

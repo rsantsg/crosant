@@ -1,10 +1,8 @@
-name = "crosant"
-main = "src/app/api/hello/route.js"
-compatibility_date = "2023-10-10"
 
+#name = "crosant"
+#main = ".vercel/output/static/index.rsc"
 [[d1_databases]]
 binding = "DB" 
 database_name = "crosantdb"
 database_id = "1e15faddd0ea4836af865f828e67711c"
-
-
+preview_database_id = "DB"
