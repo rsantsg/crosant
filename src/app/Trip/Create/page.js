@@ -1,3 +1,5 @@
+export const runtime = 'edge';
+
 export default function CreateTrip(){
 
 
@@ -8,9 +10,9 @@ export default function CreateTrip(){
                     <div className="py-6 px-7 rounded-md bg-white">
                         <div className="text-lg px-7 py-6" > Create a new Trip </div>
 
-                        <form className="" action="" method="POST"> 
+                        <form className="" action="" method="POST" onSubmit={()=> fetchData()}> 
                         <div className="grid md:grid-cols-2 grid-cols-1 gap-6">
-                            <input type="text" id="fname" name="fname" placeholder="Nom *" className="w-full border border-gray-300 rounded-md py-2 px-3 focus:outline-none focus:border-blue-700 "/>
+                            <input type="text" id="fname" name="fname" placeholder="Name" className="w-full border border-gray-300 rounded-md py-2 px-3 focus:outline-none focus:border-blue-700 "/>
                             <input type="text" id="fname" name="fname" placeholder="Téléphone *" className="w-full border border-gray-300 rounded-md py-2 px-3 focus:outline-none focus:border-blue-700"/>
                         </div>
                         <div class="md:col-span-2 pt-5">

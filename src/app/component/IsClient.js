@@ -1,4 +1,5 @@
 import { createContext, useContext, useEffect, useState } from 'react';
+export const runtime = "edge"
 
 const IsClientCtx = createContext(false);
 

@@ -19,3 +19,21 @@
 body {
   @apply bg-slate-100;
 }
+.popup-content { 
+   margin: auto;  
+  width: 20%;
+  height: 40%;
+  @apply rounded-md;
+  @apply flex; 
+  @apply justify-center; 
+  @apply items-center;
+}
+.popup-arrow {  
+  color: rgb(82, 60, 60);}[role='tooltip']
+.popup-content {
+    width: 200px; 
+     box-shadow: rgba(0, 0, 0, 0.16) 0px 0px;}
+.popup-overlay { 
+   background: rgba(0, 0, 0, 0.5);
+  }[data-popup='tooltip']
+.popup-overlay {  background: transparent;}
