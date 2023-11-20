@@ -1,4 +1,5 @@
 import './globals.css'
+
 import { Inter } from 'next/font/google'
 import SideNav from './component/SideNav'
 const inter = Inter({ 

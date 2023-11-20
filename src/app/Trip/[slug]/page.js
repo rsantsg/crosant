@@ -1,6 +1,5 @@
-export const runtime = 'edge' 
-export default function Page({params}) {
+export default function page(params){
 
 
-     return <div>My Post: {params.slug}</div>
+    return <div> {params.slug}</div>
 }
