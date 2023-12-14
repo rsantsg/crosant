@@ -29,9 +29,12 @@ export async function createTodo(prevState: any, formData: FormData) {
     location_id:formData.get('location_id')
     
   })
+  console.log(data)
+
+
   try{
     postTodo(data)
-    revalidatePath('/trip/[slug]', 'layout')
+    revalidateTag(`L${data.location_id}`)
     return { message: `Added todo ${data.name}` }
 
     

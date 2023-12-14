@@ -2,7 +2,7 @@
 import {PiPlusThin} from "react-icons/pi";
 import Popup from 'reactjs-popup';
 import 'reactjs-popup/dist/index.css'
-import { useState, useEffect } from "react";
+import {  useEffect } from "react";
 import { experimental_useFormState as useFormState } from 'react-dom'
 import { createTrip } from './action'
 import { experimental_useFormStatus as useFormStatus } from 'react-dom'
@@ -10,10 +10,6 @@ const initialState = {
   message: null,
 }
 
-async function performAsyncOperation() {
-  // Simulate an asynchronous operation
-  return new Promise(resolve => setTimeout(resolve, 2000));
-}
 
 function SubmitButton({  onClose }) {
   const { pending } = useFormStatus();
@@ -37,11 +33,14 @@ function SubmitButton({  onClose }) {
 }
 //Combine popForm with AddTrip. put everything that is currently here into the popup and add card into trigger.
 export function AddTrip() {
+  /*
   const handleSubmit = async () => {
     // Your form submission logic here, for example:
     console.log('Performing form submission...');
     console.log('Form submission complete');
-  };const [state, formAction] = useFormState(createTrip, initialState)
+  };
+  **/
+  const [state, formAction] = useFormState(createTrip, initialState)
 
 
 

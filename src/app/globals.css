@@ -19,6 +19,18 @@
 body {
   @apply bg-slate-100;
 }
+map-container {
+  height: 800px;
+  width: 800px;
+  @apply z-[1005];
+  @apply   p-5; 
+  @apply rounded-md;
+  @apply  row-start-1;
+  @apply  row-end-4;
+  @apply  col-start-1;
+  @apply  col-end-12;
+  @apply bg-black;
+  }
 .popup-content { 
    margin: auto;  
   width: 20%;

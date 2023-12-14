@@ -1,3 +1,4 @@
+
 export async function GET() {
     const credentials = btoa(process.env.PUBLIC_USER_SECRET);
     const url = 'http://127.0.0.1:8787/trip';
@@ -81,12 +82,12 @@ export async function postTodo( params){
   const credentials = btoa(process.env.PUBLIC_USER_SECRET);
   const url = `http://127.0.0.1:8787/trip/location/${params.location_id}/todo?` +new URLSearchParams({
     name: params.name, 
-    description:params?.address, 
-    links:params?.links, 
-    address:params?.address, 
-    location_id: params?.location_id, 
+    description:(params?.address) ? (params?.address):('None') ,
+    links:params?.links ? (params?.links):("None"), 
+    address:params?.address ? (params?.address):("None"), 
+    location_id: params.location_id, 
    })
-
+   console.log(url)
   const headers = {
     method:"POST",
     headers: {
@@ -156,6 +157,8 @@ export async function get_Todo(params){
       'Authorization': `Basic ${credentials}`,
 
     }, 
+    next: {tags:[`L${params}`]} 
+
 
   }
     const res=  await fetch(url,  {
