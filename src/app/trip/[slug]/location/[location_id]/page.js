@@ -58,7 +58,10 @@ export default async function Page(data, params) {
                     </div>
                     <div className=" z-1  p-5 rounded-md row-start-1 row-end-4 col-start-1 col-end-12 "> 
                     <div className="flex content-center justify-center">
-                    <MyMap></MyMap>
+                    {
+                    //<MyMap></MyMap>
+
+                        }
 
                     </div>
                     </div>

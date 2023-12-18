@@ -9,6 +9,11 @@ import { redirect } from 'next/navigation'
 //   id SERIAL PRIMARY KEY,
 //   text TEXT NOT NULL
 // );
+//This will be a new function it will replace createTrip(). It will have the functionality of CreateStop() and createTodo() all together. 
+//Functionallity. Needs to be able to create multiple stops and todo all onces. 
+export async function initTrip(prevState: any, formData: FormData) {
+
+}
 export async function createTodo(prevState: any, formData: FormData) {
   const schema = z.object({
     name: z.string().min(1),

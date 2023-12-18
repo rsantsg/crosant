@@ -96,13 +96,13 @@ export default async function  TripLayout({params, children }) {
                         Locations 
                     </div> 
                     
-                    <div className="pt-2"> 
+                    <div className="pl-3 pt-1"> 
                         <AddStop id={params.slug}/>
                         {
                         //<LocationCard id={data[0].id}></LocationCard>
                         data.map((location)=>
                         <Link  
-                        className=' p-1'
+                        className=' pl-3 pt-1'
                         href={
                             {pathname:`/trip/${params.slug}/location/${location.id}`
                             ,query:{
