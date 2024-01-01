@@ -6,7 +6,7 @@ import {get_Todo} from '../api/trip/route'
 export default function LocationCards ({id, name, description}){
     console.log("CARD ERRRPR ")
     return (
-        <div className=" flex  justify-center  z-100 h-10 w-11/12   rounded-lg bg-white shadow-md uppercase ">
+        <div className=" flex  justify-center  border pt-1 h-10  bg-inherit shadow-md uppercase ">
             <div className=' flex justify-center items-center     rounded-lg'>
                 {name} 
 

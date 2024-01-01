@@ -23,7 +23,7 @@ export async function createTodo(prevState: any, formData: FormData) {
     location_id:z.string().min(1)
   })
   console.log("====================================================")
-
+    console.log(formData.get('address'))
   console.log("====================================================")
 
   const data = schema.parse({

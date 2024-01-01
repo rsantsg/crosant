@@ -1,19 +1,36 @@
 'use client'
-export const runtime = "edge"
-
+import { PiListBold } from "react-icons/pi";
+import { useState } from "react"
 import Link from "next/link"
 export default function SideNav(){
+  const [dropDown, setDropDown] = useState(false); 
+  const dropDownHandler = ()=>{
+    setDropDown(!dropDown); 
+  }
 
 
     return( 
+      <div>
+      <header className="flex w-full items-center justify-between border-b-2 border-gray-200 bg-white p-2">
+      <div className="flex items-center space-x-2">
+          <PiListBold onClick={dropDownHandler} type="button" className="text-3xl" ><i class="bx bx-menu"></i></PiListBold>
+          <Link href={'/'}>
+            
+            
+            CROSANT
+            </Link>
+          
+              
+            
+      </div>
+
+      
+  </header>
+  { dropDown ? (
     
     <div className=" float-left h-screen flex-col justify-between border-e bg-white">
-    <div className="px-4 py-6">
-      <span
-        className="grid h-10 w-32 place-content-center rounded-lg bg-gray-100 text-xs text-gray-600"
-      >
-        Logo
-      </span>
+      <div className="px-4 ">
+     
   
       <ul className="mt-6 space-y-1">
         <li>
@@ -54,7 +71,7 @@ export default function SideNav(){
                 <div                  href=""
                   className="block rounded-lg px-4 py-2 text-sm font-medium text-gray-500 hover:bg-gray-100 hover:text-gray-700"
                 >
-                  Banned Users
+                  Complete
                 </div>
               </li>
   
@@ -62,7 +79,7 @@ export default function SideNav(){
                 <div                  href=""
                   className="block rounded-lg px-4 py-2 text-sm font-medium text-gray-500 hover:bg-gray-100 hover:text-gray-700"
                 >
-                  Calendar
+                  Planning
                 </div>
 
               </li>
@@ -135,7 +152,11 @@ export default function SideNav(){
     </div>
   
 
-  </div>
+    </div>
+  ):(<></>)
+  
+}
+   </div>
   
      )
 }

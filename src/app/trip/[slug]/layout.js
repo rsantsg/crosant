@@ -4,10 +4,12 @@ import Link from "next/link"
 import { AddStop } from "../../actions/addStop"
 import { get_Stop } from "../../api/trip/route"
 import { redirect } from 'next/navigation'
+
 export default async function  TripLayout({params, children }) {
     const data = await trip_Stops(params.slug)
     console.log(data)
     console.log("LOCATION data")
+
     /**
      <!--
   Heads up! 👋
@@ -91,18 +93,21 @@ export default async function  TripLayout({params, children }) {
         <section>
             <div className="bg-slay-100  grid grid-cols-8 shadow-sm ">
                 
-                <div className="col-auto-start col-end-2 h-screen   rounded-lg ">
-                    <div className=" pt-2 flex z-10 align-baseline rounded-lg tb-2 justify-center h-10 top-0 shadow-lg">
+                <div className="col-auto-start col-end-2 h-screen ">
+                    <Link href={`/trip/${params.slug}`} className=" pt-2 flex z-10 align-baseline tb-2 justify-center h-10  bg-inherit border top-0 shadow-lg">
                         Locations 
-                    </div> 
+                    </Link> 
                     
-                    <div className="pl-3 pt-1"> 
+                    <div className=""> 
                         <AddStop id={params.slug}/>
+                        <ul class="space-y-1">
+
                         {
                         //<LocationCard id={data[0].id}></LocationCard>
                         data.map((location)=>
+                        <li>
                         <Link  
-                        className=' pl-3 pt-1'
+                        className='  pt-1'
                         href={
                             {pathname:`/trip/${params.slug}/location/${location.id}`
                             ,query:{
@@ -111,12 +116,15 @@ export default async function  TripLayout({params, children }) {
 
                             }}}
                          key={location.id}
+                         className="block  rounded-lg bg-transparent hover:bg-slate-100 px-4 py-2 text-sm font-medium text-gray-700"
                         >
-                            <LocationCard key={location.id} id={location.id}  name={location.name}></LocationCard>
+                          {location.name}
                         </Link>
+                        </li>
                         )
                       
                         }
+                        </ul>
                         
                        
                 

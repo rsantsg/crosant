@@ -10,17 +10,19 @@ export default  function Cards({image, name,pid} ){
     // as={`/Trip/${pid}`}
 
     return( 
-        <div>
-                            <DeleteForm id={pid}/>
+    <div className="p-5  border-solid border-black   ">
+<div className='top-0 left-0'>
+                                <DeleteForm id={pid}/>
 
+                            </div>
         <Link 
         href={name !== undefined ? `/trip/${pid}` : `/trip/Create`}
         as={name !== undefined ? `/trip/${pid}` : `/trip/Create`}
         
         >
-            <div className="p-5  border-solid border-black  ">
+            <div >
                 <div
-                    className="   hover:cursor-pointer flex justify-center items-center rounded-lg shadow-md h-[200px] w-[175px] bg-slate-50">
+                    className="   hover:cursor-pointer flex justify-center items-center rounded-lg shadow-md h-[200px] w-[175px] bg-slate-50 hover:bg-slate-200">
                                 {( name!==undefined) 
                                 ? (
                                         <div> {name}
@@ -34,9 +36,12 @@ export default  function Cards({image, name,pid} ){
                                 )
                                 
                             }
+                           
+
                                 
 
                 </div>
+                
 
     
             </div>

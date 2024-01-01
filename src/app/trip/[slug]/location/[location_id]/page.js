@@ -1,7 +1,7 @@
 import { get_Stop } from "../../../../api/trip/route";
 import { AddTodo } from "../../../../actions/addTodo";
 import { get_Todo } from "../../../../api/trip/route";
-import MyMap from '../../../../component/map/Map'
+import MyMap from '../../../../component/map/Mapping'
 export default async function Page(data, params) {
     console.log(data)
     const todo = await get_Todo(data.params.location_id)
@@ -38,7 +38,7 @@ export default async function Page(data, params) {
                                     <tbody class="divide-y divide-gray-200">
                                         {
                                             todo.map((item)=> 
-                                            <tr>
+                                            <tr id={item.id}>
                                             <th className="whitespace-nowrap px-4 py-2 font-medium text-gray-900">{item.name}</th>
                                             <th className="whitespace-nowrap px-4 py-2 font-medium text-gray-900">{item.description}</th>
                                             <th className="whitespace-nowrap px-4 py-2 font-medium text-gray-900">{item.links}</th>

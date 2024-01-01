@@ -2,6 +2,7 @@ import './globals.css'
 
 import { Inter } from 'next/font/google'
 import SideNav from './component/SideNav'
+import {TopNav} from './component/Nav'
 const inter = Inter({ 
   weight: ['400', '900'],
   subsets: ['latin'], })
@@ -15,6 +16,7 @@ export default function RootLayout({ children }) {
   return (
     <html  className="  h-screen  w-screen"lang="en">
       <body className={inter.className}>
+        
       <SideNav/> 
 
         {children}

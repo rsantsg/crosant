@@ -1,19 +1,20 @@
 'use client'
 import * as React from 'react';
 import Map from 'react-map-gl';
-const TOKEN = process.env.MapboxAccessToken;
-function MyMap() {
+import 'mapbox-gl/dist/mapbox-gl.css';
 
-    return <Map
+function MyMap({Token}) {
+  return <Map
+    mapboxAccessToken={Token}
     mapLib={import('mapbox-gl')}
     initialViewState={{
       longitude: -100,
       latitude: 40,
       zoom: 3.5
     }}
-    style={{width: 600, height: 400}}
+    style={{width: '100%', height: '100%'}}
     mapStyle="mapbox://styles/mapbox/streets-v9"
-    mapboxAccessToken={TOKEN}
   />;
-  };
+}
+
   export default MyMap;

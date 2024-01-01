@@ -58,7 +58,7 @@ export async function postLocation(params){
   const credentials = btoa(process.env.PUBLIC_USER_SECRET);
   const url = `http://127.0.0.1:8787/trip/${params.trip_id}/location?` +new URLSearchParams({
     name:params.name, 
-    description: params?.description 
+    description: params?.description ?? "None"
   })
   const headers = {
     method:"POST",
@@ -82,9 +82,9 @@ export async function postTodo( params){
   const credentials = btoa(process.env.PUBLIC_USER_SECRET);
   const url = `http://127.0.0.1:8787/trip/location/${params.location_id}/todo?` +new URLSearchParams({
     name: params.name, 
-    description:(params?.address) ? (params?.address):('None') ,
-    links:params?.links ? (params?.links):("None"), 
-    address:params?.address ? (params?.address):("None"), 
+    description: params?.address ?? 'None',
+    links:params?.links ??"None", 
+    address:params?.address ?? "None", 
     location_id: params.location_id, 
    })
    console.log(url)
@@ -99,9 +99,7 @@ export async function postTodo( params){
     mode: 'cors',
   }
   const res = await fetch(url  , headers)
-  if(res.ok){
-    return res.status; 
-  }
+  console.log(res.status)
   return res.status; 
 
 

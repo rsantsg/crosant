@@ -6,6 +6,7 @@ export const runtime = "edge"
 import { GET } from './api/trip/route';
 import {POST} from './api/trip/route'
 import { AddTrip } from './actions/addTrip';
+import CompletedTask from './component/Alarts'
 
 
 
@@ -38,15 +39,17 @@ export default async function Page() {
 //          <PopupForm createTripHandler={createTripHandler()} name={undefined}></PopupForm>
 
   return (
-    <main className="   float-left w-10/12   h-screen   bg-blue-500 ">
+    <main className="    w-screen wrap   h-screen   bg-blue-500 ">
       <div type="main" className="  z-10 top-0   font-mono flex  flex-wrap overflow-y-auto">
 
           {data.map((info) => <Card key={info.id} pid={info.id} name={info.name}></Card> )}
           <AddTrip className="pt-10"/>
+          <div>
 
+          </div>
 
-  
       </div>
+
 
     </main>
   )
