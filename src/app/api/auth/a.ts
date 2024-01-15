@@ -14,21 +14,20 @@ export const { handlers: { GET, POST }, auth } = NextAuth({
 })
 */
 import type { GetServerSidePropsContext, NextApiRequest, NextApiResponse } from "next"
-import NextAuth from "next-auth"
+import { NextAuthOptions } from "next-auth"
 import { getServerSession } from "next-auth"
 import Providers from "next-auth/providers"
+import { FirebaseAdapter } from "@next-auth/firebase-adapter"
 import GithubProvider from "next-auth/providers/github";
 import CredentialsProvider from "next-auth/providers/credentials";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { getAuth, connectAuthEmulator } from "firebase/auth";
-import {auth} from '../../../lib/firebase/firebase'
-import { db } from "../../../lib/firebase/firebase";
-import { FirestoreAdapter } from "@auth/firebase-adapter"
+import {auth} from '../../lib/firebase/firebase'
+
 import { getFirestore } from 'firebase/firestore'
-import { stat } from "fs";
+
 export const authConfig: NextAuthOptions = {
-  
-      providers: [
+  providers: [
          
 
     
@@ -49,7 +48,7 @@ export const authConfig: NextAuthOptions = {
           const status = await signInWithEmailAndPassword(auth,credentials.username.toString(), credentials.password.toString()); 
           //console.log(status.user)
           console.error(status.user)
-          return status.user
+          return status
 
         }
         catch(error){
@@ -91,34 +90,4 @@ export const authConfig: NextAuthOptions = {
       }), 
     
   ],
-  callbacks: {
-    async signIn({ user, account, profile, email, credentials }) {
-      if (user) {
-        console.error("HELLO USER ")
-        return true
-      }
-      console.error("NO USER ")
-
-      return false
-    },
-    async redirect({ url, baseUrl }) {
-      if (url.startsWith(baseUrl)) return url
-      else if (url.startsWith('/')) return new URL(url, baseUrl).toString()
-      return baseUrl
-    },
-    async session({ session, token, user }) {
-      if (token) {
-        session.id = token.id
-      }
-      return session
-    },
-    async jwt({ token, user, account, profile, isNewUser }) {
-      if (user) {
-        token.id = user.id
-      }
-
-      return token
-    }},
-    adapter:FirestoreAdapter(db),
-
 }

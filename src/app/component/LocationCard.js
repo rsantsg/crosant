@@ -1,6 +1,5 @@
 'use client'
 import useSWR from 'swr'
-import {get_Todo} from '../api/trip/route'
 //const { data, error, isLoading } = useSWR("../api/trip", get_Todo(id))
 
 export default function LocationCards ({id, name, description}){

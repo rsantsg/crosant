@@ -5,9 +5,11 @@ import 'reactjs-popup/dist/index.css'
 import { useEffect, useState} from "react";
 import { experimental_useFormState as useFormState } from 'react-dom'
 import { createTrip } from './action'
+import { getUser } from "../lib/getUser"
+import { getSession } from "next-auth/react";
 import { experimental_useFormStatus as useFormStatus } from 'react-dom'
-import Stop from '../component/Stops'
-import CompletedTask from "../component/Alarts";
+//import Stop from '../component/Stops'
+import CompletedTask from "../../app/component/Alarts";
 const overlayStyle = { background: 'rgba(0,0,0,0)' };
 const arrowStyle = { color: '#000' };
 const initialState = {
@@ -53,27 +55,8 @@ const ChildComponent = ({ index }) => {
 };
 //Combine popForm with AddTrip. put everything that is currently here into the popup and add card into trigger.
 export function AddTrip() {
-  const [addButton, setAddButton] = useState(false)
-  const [childCount, setChildCount] = useState(0);
-  const [canSubmit, setCanSubmit] = useState(false)
-  const [addStop, setAddStop] = useState([])
-  const [trip,setTrip] = useState('')
-  const tripHandler =  (event) => {
-    console.log('change')
-
-    if (event.target.value.length > 0){
-        setCanSubmit(true)
-        console.log('change')
-
-    }
-    else{
-      console.log('no change')
-      setCanSubmit(!false)
-
-    }
-
-  }
-
+ 
+  
 
   const contentStyle = {
     background: '#FFFF',
@@ -88,15 +71,13 @@ export function AddTrip() {
         <input type="text" id="name" name="name" required />
         <input type="text" id="description" name="description"  />
         <input type="text" id= 'trip_id' name= 'trip_id'  className='hidden' /> 
+        <input type="text" id= 'user' name= 'trip_id'  className='hidden' value={getUser()} /> 
+
       </div>
     )
 
   }
-  const addButtonHandler = async ()=>{ 
-    //setAddButton(!addButton)
-    allStops.push(<Stop></Stop>)
-    console.log(allStops)
-  }
+
   /*
   const handleSubmit = async () => {
     // Your form submission logic here, for example:
@@ -110,6 +91,8 @@ export function AddTrip() {
   };
  
   let allStops = []
+  const user = getUser()
+  console.error(`USER: ${user}`)
 
   return( 
     <Popup className="flex justify-center  h-3/4 w-2/3 rounded-md" 
@@ -183,6 +166,8 @@ export function AddTrip() {
                   id="trip"
                   required
                 />
+                <input type="text" id= 'user' name= 'user'  className='hidden' value={user} /> 
+
                 <div className="mt-4">
               <SubmitButton onClose={close} />
               </div>

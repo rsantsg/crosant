@@ -1,3 +1,4 @@
+'use client'
 import { experimental_useFormState as useFormState, experimental_useFormStatus as useFormStatus } from 'react-dom'
 import { deleteTrip } from './action'
 import {FiTrash2} from "react-icons/fi";
@@ -9,8 +10,8 @@ function DeleteButton() {
     const { pending } = useFormStatus()
   
     return (
-      <button className =' z-100 border-solid border-black' type="submit" aria-disabled={pending}>
-        <FiTrash2/>
+      <button className =' z-100 border border-solid border-black rounded-sm' type="submit" aria-disabled={pending}>
+        Delete 
       </button>
     )
   }

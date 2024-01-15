@@ -1,4 +1,4 @@
-import MyMap from '../../../component/map/Mapping.tsx'
+import MyMap from '../../../component/map/Mapping'
 export default function page(params){
 
     const key = process.env.MapboxAccessToken; 

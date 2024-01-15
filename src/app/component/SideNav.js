@@ -2,6 +2,7 @@
 import { PiListBold } from "react-icons/pi";
 import { useState } from "react"
 import Link from "next/link"
+import { signOut } from "next-auth/react"
 export default function SideNav(){
   const [dropDown, setDropDown] = useState(false); 
   const dropDownHandler = ()=>{
@@ -10,8 +11,8 @@ export default function SideNav(){
 
 
     return( 
-      <div>
-      <header className="flex w-full items-center justify-between border-b-2 border-gray-200 bg-white p-2">
+      <div >
+      <header className="flex  items-center  justify-between border-b-2 border-gray-200 bg-white p-2">
       <div className="flex items-center space-x-2">
           <PiListBold onClick={dropDownHandler} type="button" className="text-3xl" ><i class="bx bx-menu"></i></PiListBold>
           <Link href={'/'}>
@@ -28,7 +29,7 @@ export default function SideNav(){
   </header>
   { dropDown ? (
     
-    <div className=" float-left h-screen flex-col justify-between border-e bg-white">
+    <div className=" wrap float-left h-screen flex-col justify-between border-e bg-white">
       <div className="px-4 ">
      
   
@@ -136,14 +137,13 @@ export default function SideNav(){
               </li>
   
               <li>
-                <form action="/api/auth/signout">
                   <button
                     type="submit"
+                    onClick={() => signOut()}
                     className="w-full rounded-lg px-4 py-2 text-sm font-medium text-gray-500 [text-align:_inherit] hover:bg-gray-100 hover:text-gray-700"
                   >
                     Logout
                   </button>
-                </form>
               </li>
             </ul>
           </details>

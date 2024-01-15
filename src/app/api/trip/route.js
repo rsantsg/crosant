@@ -1,4 +1,12 @@
 
+import { getStorage } from "firebase/storage";
+import { getAuth } from "firebase/auth";
+import {  collection, addDoc } from "firebase/firestore"
+import { getFirestore, connectFirestoreEmulator } from "firebase/firestore";
+
+// firebaseApps previously initialized using initializeApp()
+
+
 export async function GET() {
     const credentials = btoa(process.env.PUBLIC_USER_SECRET);
     const url = 'http://127.0.0.1:8787/trip';

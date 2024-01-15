@@ -2,10 +2,9 @@
 
 import { revalidatePath, revalidateTag } from 'next/cache'
 import { z } from 'zod'
-import {POST} from '../api/trip/route'
-import { delete_Trip as DELETE, postTodo, postLocation  } from '../api/trip/route'
+import {POST} from '../../api/trip/route'
+import { delete_Trip as DELETE, postTodo, postLocation  } from '../../api/trip/route'
 import { redirect } from 'next/navigation'
-
 // CREATE TABLE todos (
 //   id SERIAL PRIMARY KEY,
 //   text TEXT NOT NULL
@@ -82,17 +81,15 @@ export async function createStop(prevState: any, formData: FormData) {
 export async function createTrip(prevState: any, formData: FormData) {
   const schema = z.object({
     name: z.string().min(1),
-    user: z.string().min(1),
   })
   const data = schema.parse({
     name: formData.get('trip'),
-    user: formData.get('user'),
   })
-console.log("DATAHJE")
-   //const res = await addTrips(data)
+
+   const res = await POST(data.name)
   
     revalidatePath('/')
-    //redirect(`/trip/${res}`)
+    redirect(`/trip/${res}`)
   
 }
 

@@ -1,7 +1,7 @@
-import { get_Stop } from "../../../../api/trip/route";
-import { AddTodo } from "../../../../actions/addTodo";
-import { get_Todo } from "../../../../api/trip/route";
-import MyMap from '../../../../component/map/Mapping'
+import { get_Stop } from "@api/trip/route";
+import { AddTodo } from "@/../lib/actions/addTodo";
+import { get_Todo } from "@api/trip/route";
+import MyMap from '@lib/component/map/Mapping'
 export default async function Page(data, params) {
     console.log(data)
     const todo = await get_Todo(data.params.location_id)

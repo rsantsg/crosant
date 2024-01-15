@@ -4,7 +4,6 @@ export const runtime = "edge"
 import Link from 'next/link';
 import {PiPlusThin} from "react-icons/pi";
 
-import { DeleteForm } from '../actions/deleteTrip';
 
 export default  function Cards({image, name,pid} ){
     // as={`/Trip/${pid}`}
@@ -12,7 +11,6 @@ export default  function Cards({image, name,pid} ){
     return( 
     <div className="p-5  border-solid border-black   ">
 <div className='top-0 left-0'>
-                                <DeleteForm id={pid}/>
 
                             </div>
         <Link 
