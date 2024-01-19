@@ -6,7 +6,7 @@ import { useEffect, useState} from "react";
 import { experimental_useFormState as useFormState } from 'react-dom'
 import { createTrip } from './action'
 import { getUser } from "../lib/getUser"
-import { getSession } from "next-auth/react";
+//import { getSession } from "next-auth/react";
 import { experimental_useFormStatus as useFormStatus } from 'react-dom'
 //import Stop from '../component/Stops'
 import CompletedTask from "../../app/component/Alarts";
@@ -92,7 +92,7 @@ export function AddTrip() {
  
   let allStops = []
   const user = getUser()
-  console.error(`USER: ${user}`)
+  console.error(user)
 
   return( 
     <Popup className="flex justify-center  h-3/4 w-2/3 rounded-md" 

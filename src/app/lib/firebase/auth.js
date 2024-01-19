@@ -1,3 +1,12 @@
-import {auth} from '~/src/app/api/lib/firebase/firebase'
-import { createUserWithEmailAndPassword } from 'firebase/auth'
-import { PiPassword } from 'react-icons/pi'
+import { initializeApp, getApps, cert } from 'firebase-admin/app';
+
+const firebaseAdminConfig = {
+    credential: cert(process.env.FIREBASE_SECRET_KEY)
+}
+
+export function customInitApp() {
+    if (getApps().length <= 0) {
+        initializeApp(firebaseAdminConfig);
+    }
+}
+

@@ -4,12 +4,15 @@ import Card from './component/Card'
 export const runtime = "edge"
 import { GET } from './api/trip/route';
 import { AddTrip } from './actions/addTrip';
+import {auth} from './lib/firebase/firebase'
 
 
 
 
 //const data = [{'id':1, 'name':'New York'}, {'id':2, 'name':"End of Year Trip"}, {'id':3, 'name':'New York'}, {'id':4, 'name':"End of Year Trip"}, {'id':5, 'name':'New York'}, {'id':6, 'name':"End of Year Trip"},{'id':7, 'name':'New York'}, {'id':8 , 'name':"End of Year Trip"},{'id':7, 'name':'New York'}, {'id':8 , 'name':"End of Year Trip"}]
 export default async function Page() {
+  console.error('user')
+  //console.error(auth.currentUser)
   const data = await GET()
 
  
