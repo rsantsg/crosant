@@ -3,7 +3,7 @@ import { UserLogin } from "../actions/userLogin"
 import {auth} from'../lib/firebase/firebase'
 import { signInWithEmailAndPassword } from 'firebase/auth'
 import { useState } from "react"
-import { redirect } from 'next'
+import { redirect } from 'next/navigation'
 export default function page(){
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
@@ -20,13 +20,13 @@ export default function page(){
              }}
             )
             if(response.ok){
-             return NextResponse.redirect(new URL('/'))
+             redirect('/')
             }
             //const resp = await fetch(url, header)
          
            }
          catch(e){
-           console.error(e)
+           console.error('login.js page error ',e)
          }
 
         }

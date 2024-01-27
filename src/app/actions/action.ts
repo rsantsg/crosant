@@ -5,8 +5,8 @@ import { z } from 'zod'
 import {POST} from '../api/trip/route'
 import { delete_Trip as DELETE, postTodo, postLocation  } from '../api/trip/route'
 import { redirect } from 'next/navigation'
-import {POST as Signin} from '../api/login/route'
 import {auth} from '../lib/firebase/firebase'
+import {addNewTrip} from '../lib/firestore'
 import { signInWithCredential, signInWithEmailAndPassword } from 'firebase/auth'
 import { NextResponse } from 'next/server'
 
@@ -19,6 +19,26 @@ import { NextResponse } from 'next/server'
 export async function initTrip(prevState: any, formData: FormData) {
 
 }
+async function signInHandler(credentials:any) {
+  try{
+    console.log("USER LOGging ")
+   const res = await signInWithEmailAndPassword(auth, credentials.email, credentials.password)
+   //onsole.log(res.user) 
+   const kid = await res.user.getIdToken(false)
+   const response = await fetch("http://localhost:3000/api/login", {
+    method: "POST",
+    headers: {
+      Authorization: `Bearer ${kid}`,
+    }}
+   )
+   return response
+
+  }
+  catch(error){
+    return error 
+  }
+  
+}
 export async function SignIn(prevState:any, formData:FormData){
   const schema  = z.object({
     email: z.string().min(1),
@@ -29,38 +49,18 @@ export async function SignIn(prevState:any, formData:FormData){
     email: formData.get('email'), 
     password: formData.get('password')
   })
-  const url = 'http://local:3000/api/login'
-  const header ={
-    method:'POST', 
-    headers: {
-      Authorization: `Bearer ${credentials}`,
-    }
-  }
-  try{
-    console.log("In ACTIONS")
-   const res = await signInWithEmailAndPassword(auth, credentials.email, credentials.password)
-   console.log(res.user) 
-   const kid = await res.user.getIdToken(true)
-   const response = await fetch("http://localhost:3000/api/login", {
-    method: "POST",
-    headers: {
-      Authorization: `Bearer ${kid}`,
-    }}
-   )
+  const response = await signInHandler(credentials)
+ 
    if(response.ok){
-    return NextResponse.redirect(new URL('/'))
-  }
-   //const resp = await fetch(url, header)
-
-  }
-catch(e){
-  console.error(e)
-}
-
+    console.log("OKAT")
+    redirect('/')
+   }
+  
   
   
 
 }
+
 export async function createTodo(prevState: any, formData: FormData) {
   const schema = z.object({
     name: z.string().min(1),
@@ -99,6 +99,7 @@ export async function createTodo(prevState: any, formData: FormData) {
 
 
 }
+
 export async function createStop(prevState: any, formData: FormData) {
   const schema = z.object({
     name: z.string().min(1),
@@ -124,18 +125,32 @@ export async function createStop(prevState: any, formData: FormData) {
 
   }
 }
+async function  createTripHandler(data: any){
+  try{
+    const res = await addNewTrip(data)
 
+  }
+  catch (error) {
+    return error 
+  }
+
+}
 export async function createTrip(prevState: any, formData: FormData) {
   const schema = z.object({
     name: z.string().min(1),
-    user: z.string().min(1),
+    description: z.string().nullish(), 
+    where: z.string().nullish(), 
+    to: z.string().nullish(),
+    uid: z.string().min(1),
   })
   const data = schema.parse({
     name: formData.get('trip'),
-    user: formData.get('user'),
+    description: "", 
+    where: '', 
+    to : '',
+    uid: formData.get('user'),
   })
 console.log("DATAHJE")
-   //const res = await addTrips(data)
   
     revalidatePath('/')
     //redirect(`/trip/${res}`)

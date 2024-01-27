@@ -2,6 +2,7 @@
 import { PiListBold } from "react-icons/pi";
 import { useState } from "react"
 import Link from "next/link"
+import {signOutUser} from '../lib/fireAuth'
 export default function SideNav(){
   const [dropDown, setDropDown] = useState(false); 
   const dropDownHandler = ()=>{
@@ -138,6 +139,7 @@ export default function SideNav(){
               <li>
                   <button
                     type="submit"
+                    onClick={signOutUser}
                     className="w-full rounded-lg px-4 py-2 text-sm font-medium text-gray-500 [text-align:_inherit] hover:bg-gray-100 hover:text-gray-700"
                   >
                     Logout

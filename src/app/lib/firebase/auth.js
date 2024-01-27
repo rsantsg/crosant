@@ -5,6 +5,7 @@ const firebaseAdminConfig = {
 }
 
 export function customInitApp() {
+    console.log('Firebase app init')
     if (getApps().length <= 0) {
         initializeApp(firebaseAdminConfig);
     }

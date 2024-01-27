@@ -92,7 +92,7 @@ export function AddTrip() {
  
   let allStops = []
   const user = getUser()
-  console.error(user)
+  //console.error(user)
 
   return( 
     <Popup className="flex justify-center  h-3/4 w-2/3 rounded-md" 

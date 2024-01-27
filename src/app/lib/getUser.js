@@ -6,7 +6,8 @@ import {auth} from './firebase/firebase'
 import { useRouter } from 'next/navigation'
 onAuthStateChanged(auth, (user)=>{
 	if(user){
-		console.error(user)
+		
+		console.error("getUser",user)
 	}
 	else{
 		console.error("NO USER")
@@ -27,7 +28,7 @@ export function getUser() {
 
 	useEffect(() => {
 		onAuthStateChanged(auth, (authUser) => {
-			console.error(`user : ${user}` )
+			console.error(user )
 			if (user === undefined) return
 
 			// refresh when user changed to ease testing
