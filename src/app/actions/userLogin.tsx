@@ -5,8 +5,7 @@ import 'reactjs-popup/dist/index.css'
 import { useEffect, useState} from "react";
 import { experimental_useFormState as useFormState } from 'react-dom'
 import { SignIn } from './action'
-import { getUser } from "../lib/getUser"
-//import { getSession } from "next-auth/react";
+//import { getUser } from "../../../lib/lib/getUser"
 import { experimental_useFormStatus as useFormStatus } from 'react-dom'
 //import Stop from '../component/Stops'
 const overlayStyle = { background: 'rgba(0,0,0,0)' };

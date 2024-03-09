@@ -80,7 +80,7 @@ function SubmitButton({  onClose }) {
 export function AddTodo({id}){
     const [state, formAction] = useFormState(createTodo, initialState)
     
-    
+    console.log('add Todo id ', id)
     return(
       <Popup trigger={
         <div className="p-5  rounded-xl border-solid border-black  ">
@@ -170,7 +170,7 @@ export function AddTodo({id}){
      
           <div>
             <label className="sr-only" for="message">Message</label>
-            <input type="text" id= 'trip_id' name= 'location_id' value={id} className='hidden' /> 
+            <input type="text" id= 'location_id' name= 'location_id' value={id} className='hidden' /> 
 
             <textarea
               className="w-full rounded-lg border-gray-200   border border-solid p-3 text-sm"

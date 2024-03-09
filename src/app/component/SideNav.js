@@ -2,13 +2,21 @@
 import { PiListBold } from "react-icons/pi";
 import { useState } from "react"
 import Link from "next/link"
-import {signOutUser} from '../lib/fireAuth'
+import { createClientComponentClient } from '@supabase/auth-helpers-nextjs'
+import { useRouter } from 'next/navigation'
+
 export default function SideNav(){
+  const supabase = createClientComponentClient();
+  const router = useRouter()
+
   const [dropDown, setDropDown] = useState(false); 
   const dropDownHandler = ()=>{
     setDropDown(!dropDown); 
   }
-
+  const handleSignOut = async () => {
+    await supabase.auth.signOut()
+    router.refresh()
+  }
 
     return( 
       <div >
@@ -139,7 +147,7 @@ export default function SideNav(){
               <li>
                   <button
                     type="submit"
-                    onClick={signOutUser}
+                    onClick={handleSignOut}
                     className="w-full rounded-lg px-4 py-2 text-sm font-medium text-gray-500 [text-align:_inherit] hover:bg-gray-100 hover:text-gray-700"
                   >
                     Logout

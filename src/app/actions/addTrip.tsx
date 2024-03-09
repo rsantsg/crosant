@@ -5,8 +5,6 @@ import 'reactjs-popup/dist/index.css'
 import { useEffect, useState} from "react";
 import { experimental_useFormState as useFormState } from 'react-dom'
 import { createTrip } from './action'
-import { getUser } from "../lib/getUser"
-//import { getSession } from "next-auth/react";
 import { experimental_useFormStatus as useFormStatus } from 'react-dom'
 //import Stop from '../component/Stops'
 import CompletedTask from "../../app/component/Alarts";
@@ -26,11 +24,12 @@ function SubmitButton({  onClose }) {
       console.log(pending)
     }
   })
+  /*
   if(pending){
     return(
       <CompletedTask/>
     )
-  }
+  }**/
 
   return (
     <button
@@ -91,7 +90,16 @@ export function AddTrip() {
   };
  
   let allStops = []
-  const user = getUser()
+  const user =  "None"
+  /*
+  if(user !== undefined && user !== null){
+    console.log(typeof user)
+    console.log(user['uid'])
+
+  }**/
+  
+  
+
   //console.error(user)
 
   return( 

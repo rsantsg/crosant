@@ -2,13 +2,12 @@
 
 import { revalidatePath, revalidateTag } from 'next/cache'
 import { z } from 'zod'
-import {POST} from '../api/trip/route'
 import { delete_Trip as DELETE, postTodo, postLocation  } from '../api/trip/route'
 import { redirect } from 'next/navigation'
-import {auth} from '../lib/firebase/firebase'
-import {addNewTrip} from '../lib/firestore'
-import { signInWithCredential, signInWithEmailAndPassword } from 'firebase/auth'
 import { NextResponse } from 'next/server'
+import { cookies } from 'next/headers'
+
+import { createServerComponentClient } from '@supabase/auth-helpers-nextjs';
 
 // CREATE TABLE todos (
 //   id SERIAL PRIMARY KEY,
@@ -16,16 +15,17 @@ import { NextResponse } from 'next/server'
 // );
 //This will be a new function it will replace createTrip(). It will have the functionality of CreateStop() and createTodo() all together. 
 //Functionallity. Needs to be able to create multiple stops and todo all onces. 
+const supabase = createServerComponentClient({cookies}) 
 export async function initTrip(prevState: any, formData: FormData) {
 
 }
 async function signInHandler(credentials:any) {
   try{
-    console.log("USER LOGging ")
-   const res = await signInWithEmailAndPassword(auth, credentials.email, credentials.password)
+    //console.log("USER LOGging ")
+   const res = ''// await signInWithEmailAndPassword(auth, credentials.email, credentials.password)
    //onsole.log(res.user) 
-   const kid = await res.user.getIdToken(false)
-   const response = await fetch("http://localhost:3000/api/login", {
+   const kid =  '' //await res.user.getIdToken()
+   const response = await fetch( process.env.URL + '/api/login', {
     method: "POST",
     headers: {
       Authorization: `Bearer ${kid}`,
@@ -35,6 +35,7 @@ async function signInHandler(credentials:any) {
 
   }
   catch(error){
+    console.log('Loging Error Error')
     return error 
   }
   
@@ -50,13 +51,12 @@ export async function SignIn(prevState:any, formData:FormData){
     password: formData.get('password')
   })
   const response = await signInHandler(credentials)
- 
-   if(response.ok){
-    console.log("OKAT")
+  if( cookies().get("session") !== undefined){
     redirect('/')
-   }
+  }
+ 
   
-  
+  redirect('/login')  
   
 
 }
@@ -67,7 +67,7 @@ export async function createTodo(prevState: any, formData: FormData) {
     description:z.string().nullish(), 
     links:z.string().nullish(),
     address:z.string().nullish(),
-    location_id:z.string().min(1)
+    locationId:z.string().min(1)
   })
   console.log("====================================================")
     console.log(formData.get('address'))
@@ -78,15 +78,29 @@ export async function createTodo(prevState: any, formData: FormData) {
     description : formData.get('description'), 
     links:formData.get('links'), 
     address: formData.get('address'),
-    location_id:formData.get('location_id')
+    locationId:formData.get('location_id')
     
   })
-  console.log(data)
+  const { data: { user } } = await supabase.auth.getUser()
 
 
   try{
-    postTodo(data)
-    revalidateTag(`L${data.location_id}`)
+    const dataPackage = {
+      name:data.name,
+      description : data.description, 
+      privileges:{
+        "read":[user.id], 
+        'write':[user.id],
+      }, 
+      uid: user.id,
+      locationId: data.locationId
+  
+    }
+    console.log(dataPackage)
+
+    const result = await supabase.from('todos').insert(dataPackage);
+    //postTodo(data)
+    revalidateTag(`L${data.locationId}`)
     return { message: `Added todo ${data.name}` }
 
     
@@ -104,19 +118,43 @@ export async function createStop(prevState: any, formData: FormData) {
   const schema = z.object({
     name: z.string().min(1),
     description : z.string().max(256),
-    trip_id: z.string().min(1)
+    id: z.string().min(1)
   })
+  const { data: { user } } = await supabase.auth.getUser()
+
   const data = schema.parse({
     name: formData.get('name'), 
     description : formData.get('description'), 
-    trip_id: formData.get('trip_id')
+    address: '',
+    links:'', 
+   
+    id: formData.get('id')
 
   })
   try{ 
-    postLocation(data)
+    const dataPackage = {
+      name:data.name,
+      description : data.description, 
+      address: '',
+      links:'', 
+      privileges:{
+        "read":[user.id], 
+        'write':[user.id],
+      }, 
+      uid: user.id,
+      id: data.id
+  
+    }
+    console.log(dataPackage)
 
-    revalidatePath('/trip/[slug]', 'layout')
-    return {message: 'A stop was created'}
+    const result = await supabase.from('locations').insert(dataPackage);
+    console.log(result)
+    if(result.status===201){
+      revalidatePath('/trip/[slug]', 'layout')
+      return {message: 'A stop was created'}
+    }
+    return "Error"
+  
     
     
   }
@@ -125,16 +163,7 @@ export async function createStop(prevState: any, formData: FormData) {
 
   }
 }
-async function  createTripHandler(data: any){
-  try{
-    const res = await addNewTrip(data)
 
-  }
-  catch (error) {
-    return error 
-  }
-
-}
 export async function createTrip(prevState: any, formData: FormData) {
   const schema = z.object({
     name: z.string().min(1),
@@ -150,12 +179,49 @@ export async function createTrip(prevState: any, formData: FormData) {
     to : '',
     uid: formData.get('user'),
   })
-console.log("DATAHJE")
+  try {
+    console.log('HEre')
+    const { data: { user } } = await supabase.auth.getUser()
+
+      console.log("EL  ", user ); 
+      //console.log(user)
+      let dataP = {
+          "name": data.name, 
+          "uid": user.id, 
+          "privileges" :[ 
+            {
+              "read":[user.id], 
+              'write':[user.id], 
+            }
+          ], 
+          "description" : data.description, 
+          "where": data.where, 
+          "to": data.to
+
   
-    revalidatePath('/')
+      }
+      //console.log(auth.currentUser)
+      console.log(dataP)
+      const result = await supabase.from('trips').insert(dataP);
+      console.log("Trip addesd successfully:", result);
+      if(result.status === 201){
+        revalidatePath('/')
+      }
+    
+ 
+    return result
+} catch (error) {
+    console.error("Error adding trip:", error.toString());
+    return undefined
+} 
+}
+   //const res = await addNewTrip(data)
+//console.log("DATAHJE")
+  
+    
     //redirect(`/trip/${res}`)
   
-}
+
 
 export async function deleteTrip(prevState: any, formData: FormData) {
   const schema = z.object({

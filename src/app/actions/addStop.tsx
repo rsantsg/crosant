@@ -130,7 +130,7 @@ export function AddStop({id}){
         </div>
         <div>
             <label className="sr-only" for="message">Message</label>
-            <input type="text" id= 'trip_id' name= 'location_id' value={id} className='hidden' /> 
+            <input type="text" id= 'id' name= 'id' value={id} className='hidden' /> 
 
             <textarea
               className="w-full rounded-lg border-gray-200   border border-solid p-3 text-sm"

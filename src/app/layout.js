@@ -17,7 +17,6 @@ export default async function RootLayout({ children }) {
   return (
     <html  className="  h-screen  w-screen"lang="en">
       <body className={inter.className}>
-          <SideNav/> 
 
             {children}
         </body>

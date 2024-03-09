@@ -1,44 +1,34 @@
-import { NextResponse } from "next/server";
-import type { NextRequest } from "next/server";
 
-export async function middleware(request: NextRequest, response: NextResponse) {
-  const session =  request.cookies.get("session")
-  //console.log('Middleware the cookie ', request.headers)
+import { createMiddlewareClient } from '@supabase/auth-helpers-nextjs'
+import { NextResponse } from 'next/server'
 
+import type { NextRequest } from 'next/server'
+
+export async function middleware(req: NextRequest) {
+  const res = NextResponse.next()
+  const supabase = createMiddlewareClient({ req, res })
+
+  const {
+    data: { user },
+  } = await supabase.auth.getUser()
+  // if user is signed in and the current path is / redirect the user to /account
+  //console.log('in here :( ', req.nextUrl.origin, " :( ", req.nextUrl.pathname)
+
+  if (user && `${req.nextUrl.pathname}`=== `/login`) {
+
+    return NextResponse.redirect(new URL('/', req.url))
+  }
   
-  //console.log('\nMiddleware the response', response )
 
-  console.log('\nMiddleware the request', request.cookies )
-
-  //console.log('\nMiddleware the session', request.cookies )
-
-  //console.log('\n\nMiddleware the headers', request.headers )
-
-
-
-  //Return to /login if don't have a session
-  if (!session) {
-    console.log("from the middle ware no session ", )
-    return NextResponse.redirect(new URL("/login", request.url));
+  // if user is not signed in and the current path is not / redirect the user to /
+  //console.log('req.nextUrl.pathname = ', req.nextUrl.pathname )
+  if (!user && req.nextUrl.pathname !== '/login') {
+    return NextResponse.redirect(new URL('/login', req.url))
   }
 
-  //Call the authentication endpoint
-  const responseAPI =await fetch(`${request.nextUrl.origin}/api/login`, {
-    headers: {
-      Cookie: `session=${session?.value}`,
-    },
-  });
-
-  //Return to /login if token is not authorized
-  if (responseAPI.status !== 200) {
-    console.log("from the middle ware the api status is not working")
-
-    return NextResponse.redirect(new URL("/login", request.url));
-  }
-
-  return NextResponse.next();
+  return res
 }
 
 export const config = {
-  matcher: ["/"],
-};
+  matcher: ['/', '/login'],
+}
