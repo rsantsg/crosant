@@ -3,9 +3,9 @@ import {PiPlusThin} from "react-icons/pi";
 import Popup from 'reactjs-popup';
 import 'reactjs-popup/dist/index.css'
 import { useEffect, useState} from "react";
-import { experimental_useFormState as useFormState } from 'react-dom'
+import {  useFormState } from 'react-dom'
 import { createTrip } from './action'
-import { experimental_useFormStatus as useFormStatus } from 'react-dom'
+import {  useFormStatus } from 'react-dom'
 //import Stop from '../component/Stops'
 import CompletedTask from "../../app/component/Alarts";
 const overlayStyle = { background: 'rgba(0,0,0,0)' };
@@ -61,7 +61,7 @@ export function AddTrip() {
     background: '#FFFF',
     width: '40%',
    // height: `${20 + childCount * 5}%`, // Adjust the multiplier as needed
-   height:'27.25%',
+   height:'56.5%',
     borderRadius: '0.375rem',
   };
   const newStop = ()=>{ 
@@ -70,7 +70,6 @@ export function AddTrip() {
         <input type="text" id="name" name="name" required />
         <input type="text" id="description" name="description"  />
         <input type="text" id= 'trip_id' name= 'trip_id'  className='hidden' /> 
-        <input type="text" id= 'user' name= 'trip_id'  className='hidden' value={getUser()} /> 
 
       </div>
     )
@@ -103,7 +102,7 @@ export function AddTrip() {
   //console.error(user)
 
   return( 
-    <Popup className="flex justify-center  h-3/4 w-2/3 rounded-md" 
+    <Popup className="flex justify-center  rounded-md" 
       trigger={
         <div className="p-5  rounded-xl border-solid border-black  ">
           <div className="   hover:cursor-pointer flex justify-center items-center rounded-lg shadow-md h-[200px] w-[175px] bg-slate-50">    
@@ -117,54 +116,14 @@ export function AddTrip() {
 
 
     { close => (
-          /*
-          <div className='flex justify-center  h-full w-full rounded-md'> 
-                <form className=' border border-solid relative h-full w-full ' action={formAction}>
-                   
-                  <label className=' items-center absolute inset-x-0 top-0 border border-solid  h-10 w-[100%] text-center text-3xl   ' htmlFor="trip">Create a new trip </label>
-                   <div className=' w-[100%] border border-solid h-1/6 bg-slate- absolute top-10  '>
-                     <label className='text-black uppercase'>Trip name </label>
-     
-                     <input  className=' bg-slate-100 absolute bottom-0  ' placeholder='new trip' type="text" id="trip" name="trip" required />
-                     {
-                      /*
-                      {!addButton  ?(             <PiPlusThin onClick={addButtonHandler}   color='black' size={50}>   </PiPlusThin>):(<>hello</>) }
-
-                          {allStops.map((Stop, index) => (
-                          <Stop key={index} />
-                          ))}
-
-                      *
-                    }
-                   </div> 
-
-                   <div  className = " absolute bottom-0 right-5 h-10" >
-
-                            
-                        <SubmitButton onClose={close}></SubmitButton>
-                       {* Render child components based on the current count *
-                        {Array.from({ length: childCount }, (_, index) => (
-                          <ChildComponent key={index} index={index + 1} />
-                        ))}
-                      <button onClick={addNewChild}>Add New Child</button>
-                        *}
-                                            
-                    </div>
-                   
-                   <p aria-live="polite" className="sr-only" role="status">
-                     {() => close()}
-                   </p>
-                 </form>
-           
-           </div>
-           */
+      
            <div className="rounded-lg  p-8 shadow-lg lg:col-span-3 lg:p-6">
             <div className="space-y-1  w-full frex justify-center items-center ">
               <label className=' justify-center items-center uppercase text-xl font-bold' htmlFor="todo">Create a New Trip</label>
             </div>
  
-            <form action={formAction} className="space-y-4 pt-6">
-              <div>
+            <form action={formAction} className="mt-8 grid grid-cols-6 gap-6">
+              <div className="col-span-6">
                 <label className="sr-only " for="name">Name</label>
                 <input
                   className="w-full rounded-lg border border-solid p-3 text-sm"
@@ -176,9 +135,43 @@ export function AddTrip() {
                 />
                 <input type="text" id= 'user' name= 'user'  className='hidden' value={user} /> 
 
-                <div className="mt-4">
-              <SubmitButton onClose={close} />
+              
               </div>
+               <div className="col-span-6 sm:col-span-3">
+                <label className="sr-only " for="name">Name</label>
+                <input
+                  className="w-full rounded-lg border border-solid p-3 text-sm"
+                  placeholder="Where"
+                  type="text"
+                  name='where'
+                  id="where"
+                  required
+                />
+                </div>
+                   <div className="col-span-6 sm:col-span-3">
+                <label className="sr-only " for="name">Name</label>
+                <input
+                  className="w-full rounded-lg border border-solid p-3 text-sm"
+                  placeholder="To"
+                  type="text"
+                  name='to'
+                  id="to"
+                  required
+                />
+                </div>
+                <div className="col-span-6">
+                  <textarea
+                    className="w-full rounded-lg border-gray-200   border border-solid p-3 text-sm"
+                    placeholder="Description"
+                    rows="4"
+                    name='description'
+                    id="description"
+                  >
+                  
+                  </textarea>
+                </div>
+              <div className="mt-4">
+                <SubmitButton onClose={close} />
               </div>
               </form>
            </div>

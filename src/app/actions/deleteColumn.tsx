@@ -1,6 +1,6 @@
 'use client'
-import { experimental_useFormState as useFormState, experimental_useFormStatus as useFormStatus } from 'react-dom'
-import { deleteTrip } from './action'
+import { useFormState, useFormStatus } from 'react-dom'
+import { deleteColumn } from './action'
 import {FiTrash2} from "react-icons/fi";
 const initialState = {
     message: null,
@@ -17,14 +17,16 @@ function DeleteButton() {
   }
 
 
-export function DeleteForm({ id }: { id: number; }) {
-  const [state, formAction] = useFormState(deleteTrip, initialState)
+export function DeleteColumn({ id, table, column }: { id: number; table:string; column: string;}) {
+  const [state, formAction] = useFormState(deleteColumn, initialState)
 
 
   return (
     <form action={formAction}>
       <input type="hidden" name="id" value={id} />
-      <DeleteButton />
+      <input type='hidden' name= 'table' value={table}/>
+      <input type='hidden' name= 'column' value ={column}/>
+        <DeleteButton />
       <p aria-live="polite" className="sr-only" role="status">
         {state?.message}
       </p>

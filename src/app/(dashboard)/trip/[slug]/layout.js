@@ -7,11 +7,13 @@ import { AddStop } from "../../../actions/addStop"
 import { createServerComponentClient } from '@supabase/auth-helpers-nextjs';
 import { cookies } from 'next/headers';
 import { Suspense } from "react";
-async function LoadData() {
+async function LoadData({slug}) {
   const supabase = createServerComponentClient({ cookies });
   //Uncomment for production. 
   //let {data, error}  = await supabase.from('locations').select().eq('id', params['slug'])
-  let data = []
+  //let data = []
+  
+  const data = [{'id':1, 'name':'New York', 'description': "LMASOSD ASDAS", 'from': 'DC ', "to":'New Yor'}, {'id':2, 'name':"End of Year Trip"}, {'id':3, 'name':'New York'}, {'id':4, 'name':"End of Year Trip"}, {'id':5, 'name':'New York'}, {'id':6, 'name':"End of Year Trip"},{'id':7, 'name':'New York'}, {'id':8 , 'name':"End of Year Trip"},{'id':7, 'name':'New York'}, {'id':8 , 'name':"End of Year Trip"}]
 
 
   return (
@@ -25,7 +27,7 @@ async function LoadData() {
               className='  pt-1'
               href={
                 {
-                  pathname: `/trip/${params.slug}/location/${location.id}`
+                  pathname: `/trip/${slug}/location/${location.id}`
                   , query: {
                     name: location.name,
                     description: location.description,
@@ -122,7 +124,7 @@ export default async function TripLayout({ params, children }) {
             <AddStop id={params.slug} />
             <ul class="space-y-1">
               <Suspense>
-                <LoadData />
+                <LoadData slug={params.slug} />
               </Suspense>
 
             </ul>

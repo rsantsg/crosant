@@ -8,12 +8,14 @@ import { AddTrip } from '../actions/addTrip';
 import { createServerComponentClient } from '@supabase/auth-helpers-nextjs';
 import { cookies, headers } from 'next/headers';
 import { Suspense } from 'react';
+import {getTrips} from '../lib/supabaseClient'
 //import { onAuthStateChanged } from 'firebase/auth'
 //import { getAuth } from 'firebase/auth';
 async function LoadData (){
   //Comment out for production. Only for dev purpose. 
-  const data = [{'id':1, 'name':'New York'}, {'id':2, 'name':"End of Year Trip"}, {'id':3, 'name':'New York'}, {'id':4, 'name':"End of Year Trip"}, {'id':5, 'name':'New York'}, {'id':6, 'name':"End of Year Trip"},{'id':7, 'name':'New York'}, {'id':8 , 'name':"End of Year Trip"},{'id':7, 'name':'New York'}, {'id':8 , 'name':"End of Year Trip"}]
-
+  //const data = [{'id':1, 'name':'New York', 'description': "LMASOSD ASDAS", 'from': 'DC ', "to":'New Yor'}, {'id':2, 'name':"End of Year Trip"}, {'id':3, 'name':'New York'}, {'id':4, 'name':"End of Year Trip"}, {'id':5, 'name':'New York'}, {'id':6, 'name':"End of Year Trip"},{'id':7, 'name':'New York'}, {'id':8 , 'name':"End of Year Trip"},{'id':7, 'name':'New York'}, {'id':8 , 'name':"End of Year Trip"}]
+  const resp =  await getTrips()
+  const data = resp['data']
    //uncomment for production 
  /*
 let url =`http://localhost:3000/api/trip`
@@ -34,7 +36,7 @@ let data = d['body']
     <>
        {
             data ? 
-            ( data.map((info) => <Card key={info.id} pid={info.id} name={info.name}></Card> )
+            ( data.map((info) => <Card key={info.id} data={info}></Card> )
             ):(<></>)
             
             }

@@ -29,7 +29,7 @@
     "**/*.ts",
     "**/*.tsx",
     "middleware.ts"
-  ],
+, "src/app/(dashboard)/trip/[slug]/settings/page.js"  ],
   "exclude": [
     "node_modules"
   ]

@@ -174,9 +174,9 @@ export async function createTrip(prevState: any, formData: FormData) {
   })
   const data = schema.parse({
     name: formData.get('trip'),
-    description: "", 
-    where: '', 
-    to : '',
+    description: formData.get('description'), 
+    where: formData.get('where'), 
+    to : formData.get('to'),
     uid: formData.get('user'),
   })
   try {
@@ -223,15 +223,20 @@ export async function createTrip(prevState: any, formData: FormData) {
   
 
 
-export async function deleteTrip(prevState: any, formData: FormData) {
+export async function deleteColumn(prevState: any, formData: FormData) {
   const schema = z.object({
-    id: z.string().min(1)
-  })
-  const data = schema.parse({
-    id: formData.get('id'),
+    id: z.string().min(1),
+    table: z.string().min(1),
+    col: z.string().min(1)
   })
 
-    DELETE(data.id)
+  const data = schema.parse({
+    id: formData.get('id'),
+    table: formData.get('table'),
+    col: formData.get('column')
+  })
+    const result = await supabase.from(data.table).delete().eq(data.col, data.id)
+    //DELETE(data.id)
     revalidatePath('/')
     redirect('/')
 
