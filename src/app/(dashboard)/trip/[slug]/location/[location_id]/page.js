@@ -43,8 +43,9 @@ export default async function Page( params) {
 
                                     <tbody class="divide-y divide-gray-200">
                                         { data? (
-                                            data.map((item)=> 
-                                            <tr id={item.id}>
+                                            data.map((item)=>
+                                            
+                                            <tr key={item.id} id={item.id}>
                                             <th className="whitespace-nowrap px-4 py-2 font-medium text-gray-900">{item.name}</th>
                                             <th className="whitespace-nowrap px-4 py-2 font-medium text-gray-900">{item.description}</th>
                                             <th className="whitespace-nowrap px-4 py-2 font-medium text-gray-900">{item.links}</th>

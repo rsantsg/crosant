@@ -22,9 +22,9 @@ async function LoadData({slug}) {
       {
         //<LocationCard id={data[0].id}></LocationCard>
         data.map((location) =>
-          <li>
+          <li               key={location.id}
+>
             <Link
-              className='  pt-1'
               href={
                 {
                   pathname: `/trip/${slug}/location/${location.id}`
@@ -34,8 +34,7 @@ async function LoadData({slug}) {
 
                   }
                 }}
-              key={location.id}
-              className="block  rounded-lg bg-transparent hover:bg-slate-100 px-4 py-2 text-sm font-medium text-gray-700"
+              className="block pt-1 rounded-lg bg-transparent hover:bg-slate-100 px-4 py-2 text-sm font-medium text-gray-700"
             >
               {location.name}
             </Link>
@@ -46,12 +45,14 @@ async function LoadData({slug}) {
     </section>
   )
 }
+/*
 function InnerNav ({data}){
   return(
     <section>
            {
               data.map((linking) => {
                 <Link
+                key={linking.id}
                   href={{
                     pathname: linking.pathname,
                   }}
@@ -66,6 +67,7 @@ function InnerNav ({data}){
        
   )
 }
+**/
 export default async function TripLayout({ params, children }) {
 
 

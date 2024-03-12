@@ -1,6 +1,6 @@
 'use client'
 import { useEffect, useState } from "react"
-import EditTrip from "../../../../actions/editTrip"
+import EditTrip from "../actions/editTrip"
 export default function DisplaySetting({tripInfo}){
     console.log(tripInfo)
     const[edit, setEdit] = useState(true)

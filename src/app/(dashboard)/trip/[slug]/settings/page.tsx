@@ -4,7 +4,7 @@
 import { PiPencilCircle } from "react-icons/pi";
 import { DeleteColumn } from '../../../../actions/deleteColumn';
 import { getTrip } from '../../../../lib/supabaseClient';
-import DisplaySetting from "./displayData";
+import DisplaySetting from "../../../../component/displayData";
 import { Suspense } from "react";
 export default  async function page(params) {
       let dat =  await getTrip(params.params.slug)
@@ -43,7 +43,7 @@ console.log(params)
   return (
   <>
   <Suspense fallback ={<h1>loading...</h1>}>
-      <DisplaySetting tripInfo={tripInfo}> </DisplaySetting>
+      <DisplaySetting tripInfo={tripInfo}/> 
 
   </Suspense>
   <DeleteColumn id={params.params.slug} table="trips" column="id"></DeleteColumn>

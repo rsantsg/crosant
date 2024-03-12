@@ -16,7 +16,7 @@ export async function GET(request: NextRequest) {
     
     let {data, error}  = await supabase.from("locations").select()
     console.log('data? ', data)
-    return  Response.json({body:data},{status:201})
+    return  NextResponse.json({body:data},{status:201})
     
 
   }

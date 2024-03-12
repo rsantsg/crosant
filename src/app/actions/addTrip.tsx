@@ -52,6 +52,70 @@ const ChildComponent = ({ index }) => {
     </div>
   );
 };
+const CloseForm = (close: any, id:any): JSX.Element => {
+    const [state, formAction] = useFormState(createTrip, initialState)
+
+  return(
+    <div className="rounded-lg  p-8 shadow-lg lg:col-span-3 lg:p-6">
+            <div className="space-y-1  w-full frex justify-center items-center ">
+              <label className=' justify-center items-center uppercase text-xl font-bold' htmlFor="todo">Create a New Trip</label>
+            </div>
+ 
+            <form action={formAction} className="mt-8 grid grid-cols-6 gap-6">
+              <div className="col-span-6">
+                <label className="sr-only " htmlFor="name">Name</label>
+                <input
+                  className="w-full rounded-lg border border-solid p-3 text-sm"
+                  placeholder="Name"
+                  type="text"
+                  name='trip'
+                  id="trip"
+                  required
+                />
+
+              
+              </div>
+               <div className="col-span-6 sm:col-span-3">
+                <label className="sr-only " htmlFor="name">Name</label>
+                <input
+                  className="w-full rounded-lg border border-solid p-3 text-sm"
+                  placeholder="Where"
+                  type="text"
+                  name='where'
+                  id="where"
+                  required
+                />
+                </div>
+                   <div className="col-span-6 sm:col-span-3">
+                <label className="sr-only " htmlFor="name">Name</label>
+                <input
+                  className="w-full rounded-lg border border-solid p-3 text-sm"
+                  placeholder="To"
+                  type="text"
+                  name='to'
+                  id="to"
+                  required
+                />
+                </div>
+                <div className="col-span-6">
+                  <textarea
+                    className="w-full rounded-lg border-gray-200   border border-solid p-3 text-sm"
+                    placeholder="Description"
+                    rows={4}
+                    name='description'
+                    id="description"
+                  >
+                  
+                  </textarea>
+                </div>
+              <div className="mt-4">
+                <SubmitButton onClose={close} />
+              </div>
+              </form>
+           </div>
+    
+  )
+}
 //Combine popForm with AddTrip. put everything that is currently here into the popup and add card into trigger.
 export function AddTrip() {
  
@@ -84,6 +148,7 @@ export function AddTrip() {
   };
   **/
   const [state, formAction] = useFormState(createTrip, initialState)
+  /*
   const addNewChild = () => {
     setChildCount((prevCount) => prevCount + 1);
   };
@@ -100,7 +165,7 @@ export function AddTrip() {
   
 
   //console.error(user)
-
+let close = false
   return( 
     <Popup className="flex justify-center  rounded-md" 
       trigger={
@@ -113,71 +178,7 @@ export function AddTrip() {
       } modal position="right center" contentStyle={contentStyle}  overlayStyle={overlayStyle} arrowStyle={arrowStyle}>
     
    
-
-
-    { close => (
-      
-           <div className="rounded-lg  p-8 shadow-lg lg:col-span-3 lg:p-6">
-            <div className="space-y-1  w-full frex justify-center items-center ">
-              <label className=' justify-center items-center uppercase text-xl font-bold' htmlFor="todo">Create a New Trip</label>
-            </div>
- 
-            <form action={formAction} className="mt-8 grid grid-cols-6 gap-6">
-              <div className="col-span-6">
-                <label className="sr-only " for="name">Name</label>
-                <input
-                  className="w-full rounded-lg border border-solid p-3 text-sm"
-                  placeholder="Name"
-                  type="text"
-                  name='trip'
-                  id="trip"
-                  required
-                />
-                <input type="text" id= 'user' name= 'user'  className='hidden' value={user} /> 
-
-              
-              </div>
-               <div className="col-span-6 sm:col-span-3">
-                <label className="sr-only " for="name">Name</label>
-                <input
-                  className="w-full rounded-lg border border-solid p-3 text-sm"
-                  placeholder="Where"
-                  type="text"
-                  name='where'
-                  id="where"
-                  required
-                />
-                </div>
-                   <div className="col-span-6 sm:col-span-3">
-                <label className="sr-only " for="name">Name</label>
-                <input
-                  className="w-full rounded-lg border border-solid p-3 text-sm"
-                  placeholder="To"
-                  type="text"
-                  name='to'
-                  id="to"
-                  required
-                />
-                </div>
-                <div className="col-span-6">
-                  <textarea
-                    className="w-full rounded-lg border-gray-200   border border-solid p-3 text-sm"
-                    placeholder="Description"
-                    rows="4"
-                    name='description'
-                    id="description"
-                  >
-                  
-                  </textarea>
-                </div>
-              <div className="mt-4">
-                <SubmitButton onClose={close} />
-              </div>
-              </form>
-           </div>
-
-    )
-    }
+  <CloseForm/> 
 
    
     </Popup>

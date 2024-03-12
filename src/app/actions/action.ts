@@ -2,9 +2,7 @@
 
 import { revalidatePath, revalidateTag } from 'next/cache'
 import { z } from 'zod'
-import { delete_Trip as DELETE, postTodo, postLocation  } from '../api/trip/route'
 import { redirect } from 'next/navigation'
-import { NextResponse } from 'next/server'
 import { cookies } from 'next/headers'
 
 import { createServerComponentClient } from '@supabase/auth-helpers-nextjs';
@@ -16,8 +14,24 @@ import { createServerComponentClient } from '@supabase/auth-helpers-nextjs';
 //This will be a new function it will replace createTrip(). It will have the functionality of CreateStop() and createTodo() all together. 
 //Functionallity. Needs to be able to create multiple stops and todo all onces. 
 const supabase = createServerComponentClient({cookies}) 
-export async function initTrip(prevState: any, formData: FormData) {
+export async function editTrip(prevState:any, formData:FormData) {
 
+  
+}
+export async function initTrip(prevState: any, formData: FormData) {
+    const schema = z.object({
+    name: z.string().min(1),
+    description:z.string().nullish(), 
+    from:z.string().nullish(),
+    to:z.string().nullish(),
+  })
+    const data = schema.parse({
+    name: formData.get('name'),
+    description : formData.get('description'), 
+    links:formData.get('from'), 
+    address: formData.get('to'),
+  })
+  
 }
 async function signInHandler(credentials:any) {
   try{

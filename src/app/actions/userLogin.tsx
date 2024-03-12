@@ -54,7 +54,6 @@ export function UserLogin() {
         <input type="text" id="name" name="name" required />
         <input type="text" id="description" name="description"  />
         <input type="text" id= 'trip_id' name= 'trip_id'  className='hidden' /> 
-        <input type="text" id= 'user' name= 'trip_id'  className='hidden' value={getUser()} /> 
 
       </div>
     )
