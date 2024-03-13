@@ -7,7 +7,6 @@ import {  useFormState } from 'react-dom'
 import { createTrip } from './action'
 import {  useFormStatus } from 'react-dom'
 //import Stop from '../component/Stops'
-import CompletedTask from "../../app/component/Alarts";
 const overlayStyle = { background: 'rgba(0,0,0,0)' };
 const arrowStyle = { color: '#000' };
 const initialState = {
