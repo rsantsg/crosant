@@ -2,6 +2,10 @@
 import {PiPlusThin} from "react-icons/pi";
 import Popup from 'reactjs-popup';
 import 'reactjs-popup/dist/index.css'
+import DateRangePicker from '@wojtekmaj/react-daterange-picker';
+type ValuePiece = Date | null;
+import { Button, Modal } from 'flowbite-react';
+type Value = ValuePiece | [ValuePiece, ValuePiece];
 import { useEffect, useState} from "react";
 import {  useFormState } from 'react-dom'
 import { createTrip } from './action'
@@ -15,12 +19,12 @@ const initialState = {
 
 
 function SubmitButton({  onClose }) {
+  
   const { pending} = useFormStatus();
 
-  useEffect(()=>{
+ useEffect(()=>{
     if(pending){
-      onClose()
-      console.log(pending)
+        onClose()
     }
   })
   /*
@@ -51,11 +55,12 @@ const ChildComponent = ({ index }) => {
     </div>
   );
 };
-const CloseForm = (close: any, id:any): JSX.Element => {
+function CloseForm ({close}) {
+    const [date, onChange] = useState<Value>([new Date(), new Date()]);
     const [state, formAction] = useFormState(createTrip, initialState)
-
+  const [openModal, setOpenModal] = useState(false);
   return(
-    <div className="rounded-lg  p-8 shadow-lg lg:col-span-3 lg:p-6">
+    <div className="rounded-lg  p-2 shadow-lg lg:col-span-3 lg:p-2">
             <div className="space-y-1  w-full frex justify-center items-center ">
               <label className=' justify-center items-center uppercase text-xl font-bold' htmlFor="todo">Create a New Trip</label>
             </div>
@@ -78,10 +83,10 @@ const CloseForm = (close: any, id:any): JSX.Element => {
                 <label className="sr-only " htmlFor="name">Name</label>
                 <input
                   className="w-full rounded-lg border border-solid p-3 text-sm"
-                  placeholder="Where"
+                  placeholder="from"
                   type="text"
-                  name='where'
-                  id="where"
+                  name='from'
+                  id="from"
                   required
                 />
                 </div>
@@ -107,7 +112,14 @@ const CloseForm = (close: any, id:any): JSX.Element => {
                   
                   </textarea>
                 </div>
-              <div className="mt-4">
+                  <div className=" h-10 pt-2 col-span-6 sm:col-span-4 border-gray-200  inline-block  border border-solid rounded-lg">
+                      <DateRangePicker onChange={onChange} value={date} />
+                      <input name='start' id='start' type="hidden" value={JSON.stringify(date[0])}></input>
+                      <input name='end' id='end' type="hidden" value={JSON.stringify(date[1])}></input>
+
+                    </div>
+
+              <div className="inline-block p-3 mt-4">
                 <SubmitButton onClose={close} />
               </div>
               </form>
@@ -161,29 +173,26 @@ export function AddTrip() {
 
   }**/
   
-  
-
+   function onCloseModal() {
+    setOpenModal(false);
+  }
+  const [openModal, setOpenModal] = useState(false);
   //console.error(user)
 let close = false
   return( 
-    <Popup className="flex justify-center  rounded-md" 
-      trigger={
-        <div className="p-5  rounded-xl border-solid border-black  ">
-          <div className="   hover:cursor-pointer flex justify-center items-center rounded-lg shadow-md h-[200px] w-[175px] bg-slate-50">    
-            <PiPlusThin   color='black' size={50}>   </PiPlusThin> 
-
-          </div>
-          </div>
-      } modal position="right center" contentStyle={contentStyle}  overlayStyle={overlayStyle} arrowStyle={arrowStyle}>
-    
-   
-  <CloseForm/> 
-
-   
-    </Popup>
+     <div className="p-5">
+      <button className="hover:cursor-pointer flex justify-center items-center shadow-md h-[200px] w-[275px] bg-slate-50  p-5  rounded-xl border-solid border-black " onClick={() => setOpenModal(true)}> 
+                       <PiPlusThin   color='black' size={50}>   </PiPlusThin> 
 
 
-
+        </button>
+      <Modal show={openModal} size="lg" onClose={onCloseModal} popup>
+        <Modal.Header />
+        <Modal.Body>
+            <CloseForm close={onCloseModal}></CloseForm>
+        </Modal.Body>
+        </Modal>
+ </div>
 
 )
 

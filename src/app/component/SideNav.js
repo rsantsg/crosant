@@ -16,13 +16,15 @@ export default function SideNav(){
   const handleSignOut = async () => {
     await supabase.auth.signOut()
     router.refresh()
+    router.push('/login')
+
   }
 
     return( 
       <div >
       <header className="flex  items-center  justify-between border-b-2 border-gray-200 bg-white p-2">
       <div className="flex items-center space-x-2">
-          <PiListBold onClick={dropDownHandler} type="button" className="text-3xl" ><i class="bx bx-menu"></i></PiListBold>
+          <PiListBold onClick={dropDownHandler} type="button" className="text-3xl" ><i className="bx bx-menu"></i></PiListBold>
           <Link href={'/'}>
             
             

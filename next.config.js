@@ -9,7 +9,18 @@ const nextConfig = {
 
           fullUrl:true,
         }
-      }
+      },
+          images: {
+            domains:['images.unsplash.com', 'plus.unsplash.com'], 
+     remotePatterns: [
+      {
+        protocol: 'https',
+         hostname:'images.unsplash.com',
+           port: '',
+        pathname: '/**',
+         
+         }]
+          }
      
       
 

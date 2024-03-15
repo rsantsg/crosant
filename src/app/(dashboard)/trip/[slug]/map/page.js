@@ -2,9 +2,9 @@ import MyMap from '../../../../component/map/Mapping'
 export default function page(params){
 
     const key = process.env.MapboxAccessToken; 
-    console.log(key)
+    //console.log(key)
     return( 
-        <div className='h-full w-full'>
+        <div className='h-screen w-screen'>
                     <MyMap Token={key}/>
 
         </div>

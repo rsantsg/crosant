@@ -1,8 +1,12 @@
 'use client'
-import { useEffect, useState } from "react"
+interface TripProps{
+   tripInfo: any;
+
+}
+import { useEffect, useState , FC} from "react"
 import EditTrip from "../actions/editTrip"
-export default function DisplaySetting({tripInfo}){
-    console.log(tripInfo)
+  const  DisplaySetting: FC<TripProps>  = ({tripInfo}) =>{
+    console.log(' display data ',tripInfo)
     const[edit, setEdit] = useState(true)
     return(
             <>
@@ -42,8 +46,9 @@ export default function DisplaySetting({tripInfo}){
   </dl>
 
 </div>
-      ):(<EditTrip tripInfo={tripInfo}></EditTrip>)}
+      ):(<EditTrip tripInfo={tripInfo} ></EditTrip>)}
 
 </>
     )
 }
+export default DisplaySetting; 
